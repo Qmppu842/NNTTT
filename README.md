@@ -7,5 +7,5 @@ Probable implementation:
  - output layer: 9 nodes that are numbers from 0 to 1 representing where should next move go, thus only one node should light up per input.  
   
   
-Notes:  
-  - For easy inputting data one should represent tictactoe as list.
+Notes:
+- For easy inputting data one should represent tictactoe as list.
