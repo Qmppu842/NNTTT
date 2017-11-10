@@ -10,5 +10,19 @@ package nnttt;
  * @author olindqvi
  */
 public class inputnode {
+    private int squreFromBoard;
+
+    public inputnode(int squreFromBoard) {
+        this.squreFromBoard = squreFromBoard;
+    }
+    
+
+    public void setSqureFromBoard(int squreFromBoard) {
+        this.squreFromBoard = squreFromBoard;
+    }
+
+    public int getSqureFromBoard() {
+        return squreFromBoard;
+    }
     
 }
