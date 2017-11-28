@@ -92,14 +92,14 @@ public class HumanInterface extends Application {
         Label thing = new Label("New Game!");
 
         HBox p1 = new HBox();
-        Label isP1Bot = new Label("Is player 1 bot?");
+        Label isP1Bot = new Label("Is player 1 human?");
         CheckBox boxP1 = new CheckBox();
 
         p1.getChildren().add(isP1Bot);
         p1.getChildren().add(boxP1);
 
         HBox p2 = new HBox();
-        Label isP2Bot = new Label("Is player 2 bot?");
+        Label isP2Bot = new Label("Is player 2 human?");
         CheckBox boxP2 = new CheckBox();
 
         p2.getChildren().add(isP2Bot);
@@ -195,6 +195,11 @@ public class HumanInterface extends Application {
         if (action) {
             asd.setText(t.getName());
         }
+        
+        if (game.checkWinners() != StateOfSquare.EMPTY) {
+            stage.setScene(winScene());
+        }
+
     }
 
     private Scene drawSomeGame(ArrayList<TheButtonCustomThingClass> ready) {
@@ -216,5 +221,14 @@ public class HumanInterface extends Application {
         coordinaatit[1] = posY;
 
         return coordinaatit;
+    }
+
+    private Scene winScene() {
+        String winText = "And the winner is: " + game.checkWinners().getName() + "! \n GZ!";
+        Label winner = new Label(winText);
+        FlowPane ssss = new FlowPane();
+        ssss.getChildren().add(winner);
+        Scene s = new Scene(ssss);
+        return s;
     }
 }
