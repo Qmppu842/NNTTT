@@ -22,9 +22,9 @@ public class Game {
         StateOfSquare st = StateOfSquare.EMPTY;
         board = new StateOfSquare[3][3];
 //        Arrays.fill(board, st);
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
-                board[x][y] = st;
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                board[y][x] = st;
             }
         }
 
@@ -52,7 +52,7 @@ public class Game {
             } else {
                 t = t.O;
             }
-            boolean menikoInput = this.inputTurn(t, x, y);
+            boolean menikoInput = this.inputTurn(t, y, x);
             System.out.println("vuor: " + vuor + "| x: " + x + "| y: " + y);
             System.out.println("meniko: " + menikoInput);
             System.out.println("turn: " + this.getTurnNumber());
@@ -76,8 +76,8 @@ public class Game {
         isP2Human = true;
     }
 
-    public boolean inputTurn(StateOfSquare turn, int posX, int posY) {
-        StateOfSquare st = board[posX][posY];
+    public boolean inputTurn(StateOfSquare turn, int posY, int posX) {
+        StateOfSquare st = board[posY][posX];
         if (!st.equals(StateOfSquare.EMPTY)) {
             return false;
         }
@@ -88,15 +88,15 @@ public class Game {
         } else if (!turn.equals(StateOfSquare.O)) {
             return false;
         }
-        board[posX][posY] = turn;
+        board[posY][posX] = turn;
         turnNumber++;
         return true;
     }
 
     public ArrayList<StateOfSquare> flatBoard() {
         ArrayList<StateOfSquare> flat = new ArrayList<>();
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
                 flat.add(board[x][y]);
             }
         }
@@ -106,7 +106,7 @@ public class Game {
     public StateOfSquare checkWinners() {
         StateOfSquare hor = checkWinnersHorizontal();
         StateOfSquare ver = checkWinnersVertical();
-        StateOfSquare cor = checkWinnersHorizontal();
+        StateOfSquare cor = checkWinnersCorner();
 
         if (!hor.equals(StateOfSquare.EMPTY)) {
             return hor;
@@ -184,15 +184,15 @@ public class Game {
     @Override
     public String toString() {
         String boardState = "";
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
-                boardState += board[x][y].getName();
-                if (y != 2) {
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                boardState += board[y][x].getName();
+                if (x != 2) {
                     boardState += "|";
                 }
             }
             boardState += "\n";
-            if (x != 2) {
+            if (y != 2) {
                 boardState += "-+-+-\n";
             }
         }
