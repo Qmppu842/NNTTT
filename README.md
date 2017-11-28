@@ -9,3 +9,4 @@ Probable implementation:
   
 Notes:
 - For easy inputting data one should represent tictactoe as list.
+- If I start to feel like God then I will implement website for this.
