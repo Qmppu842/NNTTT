@@ -111,7 +111,7 @@ public class HumanInterface extends Application {
         Button start = new Button("Start game!");
         start.setOnAction((event) -> {
             buildNewGame(p1Hum, p2Hum);
-//            stage.setScene(gameOn());
+            stage.setScene(drawSomeGame(listOfButtons(game.flatBoard())));
         });
 
         blah.getChildren().add(thing);
@@ -165,9 +165,56 @@ public class HumanInterface extends Application {
 //        Scene afk = new Scene(peli);
 //        return afk;
 //    }
+    private ArrayList<TheButtonCustomThingClass> listOfButtons(ArrayList<StateOfSquare> flatBoard) {
+        //TODO Custom class that handless buttoning...
 
-    private ArrayList<Button> listOfButtons(ArrayList<StateOfSquare> flatBoard) {
-        
-        return null;
+//        TheButtonCustomThingClass but = new TheButtonCustomThingClass(3,3);
+//        int posX = but.getPosX();
+        ArrayList<TheButtonCustomThingClass> ready = new ArrayList<>();
+        for (int i = 0; i < flatBoard.size(); i++) {
+            TheButtonCustomThingClass button = new TheButtonCustomThingClass(i, flatBoard.get(i));
+            button.setOnAction((event) -> {
+                pressed(button);
+            });
+            ready.add(button);
+
+        }
+
+        return ready;
+    }
+
+    private void pressed(TheButtonCustomThingClass asd) {
+        StateOfSquare t = StateOfSquare.X;
+        if (game.getTurnNumber() % 2 == 0) {
+            t = t.X;
+        } else {
+            t = t.O;
+        }
+
+        boolean action = game.inputTurn(t, asd.getPosY(), asd.getPosX());
+        if (action) {
+            asd.setText(t.getName());
+        }
+    }
+
+    private Scene drawSomeGame(ArrayList<TheButtonCustomThingClass> ready) {
+        GridPane gamee = new GridPane();
+        for (int i = 0; i < ready.size(); i++) {
+            TheButtonCustomThingClass asdd = ready.get(i);
+            gamee.add(asdd, asdd.getPosX(), asdd.getPosY());
+        }
+        Scene gameOnScene = new Scene(gamee);
+        return gameOnScene;
+    }
+
+    public int[] fromFlatTo2D(int flatPos) {
+        int posX = Math.floorDiv(flatPos, 3);
+        int posY = flatPos % 3;
+
+        int[] coordinaatit = new int[2];
+        coordinaatit[0] = posX;
+        coordinaatit[1] = posY;
+
+        return coordinaatit;
     }
 }
